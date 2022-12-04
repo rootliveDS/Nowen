@@ -6,10 +6,20 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from .permissions import IsAuthorOrReadOnly
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 def StartPage(request):
-    return render(request, "nowen/index.html")
+    return render(request, 'nowen/index.html')
+
+def UserPage(request, username):
+    return render(request, 'nowen/index.html')
+
+
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = 'registration/signup.html'
+
 
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
@@ -20,11 +30,6 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-
-class SignUp(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = "registration/signup.html"
 
 class UserList(generics.ListCreateAPIView):
     queryset = get_user_model().objects.all()
