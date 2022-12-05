@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 from .permissions import IsAuthorOrReadOnly
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.models import User
 
 # import functools
 
@@ -29,12 +29,15 @@ def UserPage(request, username):
 #         Post.objects.filter(author=request.user)
 #         return Post.objects.filter(user=username)
 
+
 def PostMain(request):
-    author = Post.objects.get(id)
-    Post.objects.filter(id == author)
-    return render(request, 'nowen/profile.html')
+    author = Post.objects.all()
+    user_id = request.user.id
+    if user_id == author:
+        return render(request, 'nowen/profile.html' )
 
-
+class Ad(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
 
 class SignUp(CreateView):
     form_class = UserCreationForm
