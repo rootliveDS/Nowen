@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import PostList, PostDetail, SignUp, UserList, UserDetail, StartPage, UserPage, PostMain
+from .views import PostList, PostDetail, SignUp, UserList, UserDetail, StartPage, UserPage
 
 ##################
 # <str:username>/
@@ -15,6 +15,5 @@ urlpatterns = [
     path('api/post/<int:pk>/', PostDetail.as_view()),
     path('api/post', PostList.as_view()),
     path('accounts/signup/', SignUp.as_view()),
-    path('profile/<str:username>/', UserPage, name='profile'),
-    path('test/', PostMain, name='context'),
+    path('profile/<str:username>/', UserPage.as_view()),
 ]
