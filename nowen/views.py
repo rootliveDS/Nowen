@@ -1,5 +1,6 @@
 from rest_framework import generics
 from .models import Post
+from django.contrib.auth.models import User
 from .serializers import PostSerializer, UserSerializer
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -25,11 +26,10 @@ class SignUp(CreateView):
     success_url = reverse_lazy("login")
     template_name = 'registration/signup.html'
 
-##Api
-############################################################################################################
-############################################################################################################
+##############################
+
 class PostList(generics.ListCreateAPIView):
-    queryset = Post.objects.all()
+    queryset = User.objects.all()
     serializer_class = PostSerializer
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -37,6 +37,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+##############################
 
 class UserList(generics.ListCreateAPIView):
     queryset = get_user_model().objects.all()
@@ -46,92 +47,13 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
 
-#
-# ####Work then
-# ####################################
-# # class UserPage(CreateView):
-# #     def dispatch(self, request):
-# #         if not request.user.is_authenticated():
-# #             return HttpResponseForbidden()
-# #         return super(UserPage, self).dispatch(request)
-#
-# class UserPage(CreateView):
-#     queryset = Post.objects.filter.author()
-#     serializer_class = PostSerializer
-#
-#     def dispatch(self, request, *args, **kwargs):
-#
-#         active_user = request.user.get_username()
-#         if active_user == request.user.is_authenticated():
-#             return render(request, 'nowen/profile.html')
-#
-# # class UserPost(generics.CreateAPIView):
-# #     permission_classes = (IsAuthorOrReadOnly,)
-# #     queryset = Post.objects.all()
-# #     serializer_class = PostSerializer
-# #     def dispatch(self, request):
-# #         user = request.user.is_authenticated()
-#
-#
-#
-#     # if Post.objects.filter(user=username):
-#     #    return render(request, 'nowen/profile.html')
-########################################################################
-########################################################################
+##############################
 
-########################################################################
-########################################################################
-# class UserPage(SingleObjectMixin, View):
-#     model = Post
-#     def post(self,request, *args, **kwargs):
-#         if not request.user.is_authenticated:
-#             return HttpResponseForbidden()
-#         self.object = self.get_object()
-#         return render(request, 'nowen/profile.html')
-#
-# class UserPage(SingleObjectMixin, View):
-#     model = Post
-#     def post(self,request, *args, **kwargs):
-#         active_user = request.user.is_authenticated.id
-#         if Post.objects.filter(author=active_user):
-
-
-# class UserPage(generics.ListCreateAPIView):
-#     queryset = get_user_model().objects.all()
-#     serializer_class = UserSerializer
-
-# def UserPage(request):
-#     context = {
-#         'posts': Post.objects.filter(author=request.user)
-#     }
-#     return render(request, 'nowen/profile.html', context)
-
-# class UserList(generics.ListCreateAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = UserSerializer
-
-########################## IT,s Work
-########################################################################
-################################################################################################################################################
-########################################################################
-
-#class UserPage(generics.CreateAPIView):
-#    queryset = Post.objects.all()
-#    serializer_class = PostSerializer
-#    def get_queryset(self):
-#        return Post.objects.filter(author_id=self.request.user)
-
-# class UserPage(ListView):
-#     model = Post
-#     templete_name = 'nowen/profile.html'
-#     context_object_name = 'title'
-#     def get_queryset(self):
-#         return Post.objects.filter(author_id=self.request.user)
-
-class UserPage(DetailView):
-    model = Post
-    templete_name = 'nowen/profile.html'
-    lug_url_kwarg = 'post_slug'
-    context_object_name = 'post'
+class UserPage(generics.ListAPIView):
+    serializer_class = PostSerializer
     def get_queryset(self):
-        return Post.objects.filter(author_id=self.request.user)
+        queryset = Post.objects.all()
+        profile = self.request.user
+        if profile is not None:
+            queryset = queryset.filter(author__username=profile)
+            return queryset

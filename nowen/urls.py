@@ -1,6 +1,5 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from .views import PostList, PostDetail, SignUp, UserList, UserDetail, StartPage, UserPage
-
 
 
 urlpatterns = [
@@ -11,7 +10,7 @@ urlpatterns = [
     path('api/post/<int:pk>/', PostDetail.as_view()),
     path('api/post', PostList.as_view()),
     path('accounts/signup/', SignUp.as_view()),
-    path('profile/', UserPage.as_view(), name='post'),
+    re_path('^profile/(?P<username>.+)/$', UserPage.as_view()),
 ]
 
 
