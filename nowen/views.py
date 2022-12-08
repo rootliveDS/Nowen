@@ -8,6 +8,8 @@ from .permissions import IsAuthorOrReadOnly
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
 ##################################################################
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
@@ -113,8 +115,23 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 ################################################################################################################################################
 ########################################################################
 
-class UserPage(generics.CreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+#class UserPage(generics.CreateAPIView):
+#    queryset = Post.objects.all()
+#    serializer_class = PostSerializer
+#    def get_queryset(self):
+#        return Post.objects.filter(author_id=self.request.user)
+
+# class UserPage(ListView):
+#     model = Post
+#     templete_name = 'nowen/profile.html'
+#     context_object_name = 'title'
+#     def get_queryset(self):
+#         return Post.objects.filter(author_id=self.request.user)
+
+class UserPage(DetailView):
+    model = Post
+    templete_name = 'nowen/profile.html'
+    lug_url_kwarg = 'post_slug'
+    context_object_name = 'post'
     def get_queryset(self):
         return Post.objects.filter(author_id=self.request.user)
