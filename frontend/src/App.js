@@ -21,8 +21,8 @@ class App extends React.Component {
           this.state.Post
             .map(Post =>
               <div key={Post.id}>
-                <h1>{Post.author}</h1>
-                <h2>{Post.title}</h2>
+              <h1>{Post.title}</h1>
+                <h2>{Post.author}</h2>
                 <h3>{Post.created_at}</h3>
                 <p>{Post.body}</p>
               </div>
