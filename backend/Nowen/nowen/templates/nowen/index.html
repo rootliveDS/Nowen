@@ -1,8 +1,12 @@
 
 <h1>Hello, {{ user.username|default:'Guest' }}</h1>
 
+
+
 {% if user.is_authenticated %}
     <p>Как дела, бро</p>
+    <img src='{{post.img.url}}' class="card-img-top">
 {% else %}
     <p>Access denied</p>
 {% endif %}
+

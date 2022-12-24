@@ -11,6 +11,9 @@ from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import BasicAuthentication
+
 ##################################################################
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
@@ -33,7 +36,7 @@ class PostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 

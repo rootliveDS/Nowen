@@ -1,6 +1,8 @@
 from django.urls import path, include, re_path
 from .views import PostList, PostDetail, SignUp, UserList, UserDetail, StartPage, UserPage
 
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', StartPage, name='home'),
@@ -13,5 +15,7 @@ urlpatterns = [
     re_path('^profile/(?P<username>.+)/$', UserPage.as_view()),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # <str:username>/
