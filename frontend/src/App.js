@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './App.css';
 
 class App extends React.Component {
  state = {
@@ -7,7 +8,7 @@ class App extends React.Component {
  }
 
   componentDidMount() {
-    axios.get('http://127.0.0.1:8000/api/post', 'http://127.0.0.1:8000/api/users' )
+    axios.get('http://172.16.21.72:8080/api/post')
       .then(res => {
         const Post = res.data;
         this.setState({ Post });
@@ -22,12 +23,12 @@ class App extends React.Component {
           this.state.Post
             .map(Post =>
               <div key={Post.id}>
-              <h1>{Post.title}</h1>
-                <p>{Post.body}</p>
-                <img alt='Img' src={Post.image}/>
+              <h1 className='title' >{Post.title}</h1>
+                <p className='body'>{Post.body}</p>
+                  <img className='image' alt='Img' src={Post.image}/>
                   <div>
-                    <div>{Post.author}</div>
-                    <p3>{Post.created_at}</p3>
+                    <div className='author'>{Post.author}</div>
+                    <p3 className='created_at'>{Post.created_at}</p3>
                   </div>
               </div>
             )
