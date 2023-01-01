@@ -5,13 +5,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', StartPage, name='home'),
+    path('', StartPage, name='index'),
     path('api/users/', UserList.as_view()),
     path('api/users/<int:pk>/', UserDetail.as_view()),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('api/post/<int:pk>/', PostDetail.as_view()),
-    path('api/post', PostList.as_view()),
-    path('accounts/signup/', SignUp.as_view()),
+    path('api/post', PostList.as_view(), name='api/post'),
+    path('signup/', SignUp.as_view(), name='signup'),
+    path('api-auth/', include('rest_framework.urls')),
     re_path('^profile/(?P<username>.+)/$', UserPage.as_view()),
 ]
 
