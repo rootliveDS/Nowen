@@ -1,0 +1,8 @@
+{% for Post in Posts %}
+    <tr class='success'>
+        <td>{{ Post.title }}</td>
+        <td>{{ Post.body }}</td>
+        <img className='image' src={{Post.image.url}}/>
+        <td>{{ Post.author }}</td>
+    </tr>
+{% endfor %}

@@ -12,6 +12,10 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import redirect
 from rest_framework.authentication import TokenAuthentication
+
+from django.views.generic.list import ListView
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import BasicAuthentication
 
 ##################################################################
@@ -24,6 +28,11 @@ def StartPage(request):
     return render(request, 'nowen/index.html')
 
 
+class NowenList(ListView):
+    model = Post
+    template_name = 'nowen/home.html'
+    context_object_name = 'Posts'
+
 class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
@@ -31,6 +40,9 @@ class SignUp(CreateView):
 
 ##############################
 
+# @api_view()
+# @permission_classes([IsAuthenticated])
+# @authentication_classes([BasicAuthentication])
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

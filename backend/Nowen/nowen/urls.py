@@ -1,11 +1,12 @@
 from django.urls import path, include, re_path
-from .views import PostList, PostDetail, SignUp, UserList, UserDetail, StartPage, UserPage
+from .views import PostList, PostDetail, SignUp, UserList, UserDetail, StartPage, UserPage, NowenList
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('', StartPage, name='index'),
+    path('nowen', NowenList.as_view(), name='nowen'),
     path('api/users/', UserList.as_view()),
     path('api/users/<int:pk>/', UserDetail.as_view()),
     path('api/post/<int:pk>/', PostDetail.as_view()),
