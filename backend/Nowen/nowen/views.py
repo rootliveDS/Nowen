@@ -9,19 +9,19 @@ from .permissions import IsAuthorOrReadOnly
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.shortcuts import redirect
-from rest_framework.authentication import TokenAuthentication
 
-from django.views.generic.list import ListView
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import BasicAuthentication
 
 ##################################################################
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
+from django.views.generic.detail import DetailView
+from django.shortcuts import redirect
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import BasicAuthentication
+
 ##################################################################
 
 def StartPage(request):

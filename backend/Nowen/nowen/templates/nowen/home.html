@@ -1,8 +1,15 @@
+{% load static %}
+<header class="header">
+    <div class="container_logo">
+        <img className='logo' src="{static 'logo512.png'}"/>
+    </div>
+</header>
+
 {% for Post in Posts %}
     <tr class='success'>
-        <td>{{ Post.title }}</td>
-        <td>{{ Post.body }}</td>
+        <h1>{{ Post.title }}</h1>
+        <p>{{ Post.body }}</p>
         <img className='image' src={{Post.image.url}}/>
-        <td>{{ Post.author }}</td>
+        <h2>{{ Post.author }}, author for post.</h2>
     </tr>
 {% endfor %}

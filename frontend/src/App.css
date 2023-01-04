@@ -1,9 +1,31 @@
-.image{
-    height:50%;
-    width:50%;
+.image {
+    height:650px;
+    width:950px;
     cursor: grabbing;
+    margin-left: 200px;
+    margin-right: auto;
+
 }
 
 .title{
     cursor: crosshair;
+    text-align: center;
+}
+
+
+.body{
+    cursor: crosshair;
+    text-align: center;
+
+}
+    
+.author{
+    cursor: crosshair;
+    text-align: center;
+
+}
+
+.created_at{
+    cursor: crosshair;
+    text-align: center;
 }

@@ -1,5 +1,6 @@
 {% if user.is_superuser %}
-        <p>Your superuser</p>
+        <p>Your superuser status</p>
+    <a href="{% url 'admin:index' %}">Admin</a>
     {% endif %}
 <h1>Hello, {{ user.username|default:'Guest' }}</h1>
 
